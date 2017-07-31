@@ -37,7 +37,19 @@ class UsersController extends AppController
             $this->Flash->error('Tu usuario o contraseña es incorrecta.');
         }
     }
-    
+
+    public function initialize()
+    {
+        parent::initialize();
+        $this->Auth->allow(['logout']);
+    }
+
+    public function logout()
+    {
+        $this->Flash->success('Ahora estás deslogueado.');
+        return $this->redirect($this->Auth->logout());
+    }
+
     /**
      * View method
      *
