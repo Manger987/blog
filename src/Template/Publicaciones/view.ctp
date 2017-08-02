@@ -4,51 +4,47 @@
   * @var \App\Model\Entity\Publicacione $publicacione
   */
 ?>
-<nav class="large-3 medium-4 columns" id="actions-sidebar">
-    <ul class="side-nav">
-        <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Html->link(__('Edit Publicacione'), ['action' => 'edit', $publicacione->id]) ?> </li>
-        <li><?= $this->Form->postLink(__('Delete Publicacione'), ['action' => 'delete', $publicacione->id], ['confirm' => __('Are you sure you want to delete # {0}?', $publicacione->id)]) ?> </li>
-        <li><?= $this->Html->link(__('List Publicaciones'), ['action' => 'index']) ?> </li>
-        <li><?= $this->Html->link(__('New Publicacione'), ['action' => 'add']) ?> </li>
-        <li><?= $this->Html->link(__('List Users'), ['controller' => 'Users', 'action' => 'index']) ?> </li>
-        <li><?= $this->Html->link(__('New User'), ['controller' => 'Users', 'action' => 'add']) ?> </li>
+<nav class="navbar navbar-default" id="actions-sidebar">
+    <ul class="nav nav-tabs">
+        <li class="navbar-brand"><?= __('Acciones') ?></li>
+        <?php if($user['users_perfile']['id'] == 1 ):?>
+        <li><?= $this->Html->link(__('Editar Publicaciones'), ['action' => 'edit', $publicacione->id]) ?> </li>
+        <li><?= $this->Form->postLink(__('Eliminar Publicaciones'), ['action' => 'delete', $publicacione->id], ['confirm' => __('Esta seguro que desea eliminar # {0}?', $publicacione->id)]) ?> </li>
+        <li><?= $this->Html->link(__('Nueva Publicacion'), ['action' => 'add']) ?> </li>
+        <?php endif; ?>    
+        <li><?= $this->Html->link(__('Listar Publicaciones'), ['action' => 'index']) ?> </li>
+        <!--li><?= $this->Html->link(__('List Users'), ['controller' => 'Users', 'action' => 'index']) ?> </li>
+        <li><?= $this->Html->link(__('New User'), ['controller' => 'Users', 'action' => 'add']) ?> </li-->
     </ul>
 </nav>
 <div class="publicaciones view large-9 medium-8 columns content">
-    <h3><?= h($publicacione->id) ?></h3>
-    <table class="vertical-table">
-        <tr>
-            <th scope="row"><?= __('User') ?></th>
-            <td><?= $publicacione->has('user') ? $this->Html->link($publicacione->user->id, ['controller' => 'Users', 'action' => 'view', $publicacione->user->id]) : '' ?></td>
-        </tr>
-        <tr>
-            <th scope="row"><?= __('Titulo') ?></th>
-            <td><?= h($publicacione->titulo) ?></td>
-        </tr>
-        <tr>
-            <th scope="row"><?= __('Autor') ?></th>
-            <td><?= h($publicacione->autor) ?></td>
-        </tr>
-        <tr>
-            <th scope="row"><?= __('Id') ?></th>
-            <td><?= $this->Number->format($publicacione->id) ?></td>
-        </tr>
-        <tr>
-            <th scope="row"><?= __('Created') ?></th>
-            <td><?= h($publicacione->created) ?></td>
-        </tr>
-        <tr>
-            <th scope="row"><?= __('Modified') ?></th>
-            <td><?= h($publicacione->modified) ?></td>
-        </tr>
-    </table>
-    <div class="row">
-        <h4><?= __('Resumen') ?></h4>
-        <?= $this->Text->autoParagraph(h($publicacione->resumen)); ?>
-    </div>
-    <div class="row">
-        <h4><?= __('Texto Completo') ?></h4>
-        <?= $this->Text->autoParagraph(h($publicacione->texto_completo)); ?>
+
+
+    <div class="panel panel-info">
+        <div class="panel-heading">
+            <h3 class="panel-title"><?= h($publicacione->titulo) ?></h3><span class="label label-primary"><?= h($publicacione->created) ?></span>
+        </div>
+        <div class="panel-body">
+            <div class="list-group">
+              <a href="#" class="list-group-item">
+                <h4 class="list-group-item-heading"><?= __('Autor') ?></h4>
+                <p class="list-group-item-text"><?= h($publicacione->autor) ?></p>
+              </a>
+              <a href="#" class="list-group-item">
+                <h4 class="list-group-item-heading"><?= __('Detalle') ?></h4>
+                <p class="list-group-item-text"><?= h($publicacione->resumen) ?></p>
+              </a>
+              <a href="#" class="list-group-item">
+                <h4 class="list-group-item-heading"><?= __('Texto') ?></h4>
+                <p class="list-group-item-text"><?= $this->Text->autoParagraph(h($publicacione->texto_completo)); ?></p>
+              </a>
+            </div>
+            <nav aria-label="...">
+              <ul class="pager">
+                <li class="previous <?=($id_menor==null)?'disabled':'';?>"><?= $this->Html->link(__('Publicacion Anterior'), ['controller' => 'Publicaciones', 'action' => 'view',$id_menor]) ?></li>
+                <li class="next <?=($id_mayor==null)?'disabled':'';?>"><?= $this->Html->link(__('Publicacion Siguiente'), ['controller' => 'Publicaciones', 'action' => 'view',$id_mayor]) ?></li>
+              </ul>
+            </nav>
+        </div>
     </div>
 </div>

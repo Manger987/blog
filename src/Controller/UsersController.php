@@ -50,6 +50,21 @@ class UsersController extends AppController
         return $this->redirect($this->Auth->logout());
     }
 
+    public function test()
+    {
+         $users = $this->Users->find('all')->contain(['UsersPerfiles']);
+         $users->hydrate(false);
+         // and return the result set.
+        $results = $users->all();
+        // Once we have a result set we can get all the rows
+        $data = $results->toArray();
+        pr($data[0]);//->users_perfile->perfil_id);
+        /*$query = $users->find('all')->contain(['UsersPerfiles']);
+        foreach ($query as $user) {
+            echo $user->perfil_id[0]->text;
+        }*/
+    }
+
     /**
      * View method
      *

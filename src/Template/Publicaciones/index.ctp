@@ -6,7 +6,7 @@
 ?>
 <nav class="navbar navbar-default" id="actions-sidebar">
     <ul class="nav nav-tabs">
-        <li class="navbar-brand"><?= __('Actions') ?></li>
+        <li class="navbar-brand"><?= __('Acciones') ?></li>
         <li><?= $this->Html->link(__('Nueva Publicacion'), ['action' => 'add']) ?></li>
         <li><?= $this->Html->link(__('Listar Usuario'), ['controller' => 'Users', 'action' => 'index']) ?></li>
         <!--li><?= $this->Html->link(__('New User'), ['controller' => 'Users', 'action' => 'add']) ?></li-->

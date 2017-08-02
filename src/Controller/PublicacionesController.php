@@ -25,6 +25,10 @@ class PublicacionesController extends AppController
         ];
         $publicaciones = $this->paginate($this->Publicaciones);
 
+        $this->loadModel('Users');
+        $users = $this->Users->find('all')->contain(['UsersPerfiles'])->where(['UsersPerfiles.user_id' => $this->Auth->user('id')]);//->contain(['UsersPerfiles.user_id' => $this->Auth->user('id')]);
+
+        $this->set(compact('users'));
         $this->set(compact('publicaciones'));
         $this->set('_serialize', ['publicaciones']);
     }
@@ -42,6 +46,29 @@ class PublicacionesController extends AppController
             'contain' => ['Users']
         ]);
 
+        $this->loadModel('Users');
+        $user = $this->Users->find('all')->contain(['UsersPerfiles'])->where(['UsersPerfiles.user_id' => $this->Auth->user('id')])
+        ->hydrate(false)
+        ->toArray();
+        //$total_public = $this->Publicaciones->find('all')->where(['Publicaciones.id' => $id)]);//->count();
+        //$id_menor = $this->Publicaciones->find('first')->where(['Publicaciones.id' < $id)]);
+        $id_menor = $this->Publicaciones->find('all', ['limit' => 1,'order' => 'Publicaciones.id DESC'])
+        ->where(['Publicaciones.id <' => $id])->limit(1)
+        ->hydrate(false)
+        ->toArray();
+
+        $id_mayor = $this->Publicaciones->find('all', ['limit' => 1,'order' => 'Publicaciones.id ASC'])
+        ->where(['Publicaciones.id >' => $id])->limit(1)
+        ->hydrate(false)
+        ->toArray();
+
+        $total_public = $this->Publicaciones->find('all')->count();
+
+        $this->set('publ_actual', $id);
+        $this->set('tot_publ', $total_public);
+        $this->set('user', $user[0]);
+        $this->set('id_menor', isset($id_menor[0]['id'])?$id_menor[0]['id']:null);
+        $this->set('id_mayor', isset($id_mayor[0]['id'])?$id_mayor[0]['id']:null);
         $this->set('publicacione', $publicacione);
         $this->set('_serialize', ['publicacione']);
     }

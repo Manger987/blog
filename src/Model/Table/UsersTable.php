@@ -37,6 +37,14 @@ class UsersTable extends Table
         $this->setPrimaryKey('id');
 
         $this->addBehavior('Timestamp');
+        /*$this->hasOne('UsersPerfiles', [
+            'className' => 'UsersPerfiles'
+        ]);*/
+        $this->hasOne('UsersPerfiles');
+        /*$this->belongsTo('userPerfil', [
+            'foreignKey' => 'user_id',
+            'className' => 'UsersPerfiles'
+        ]);*/
     }
 
     /**
