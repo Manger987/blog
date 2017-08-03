@@ -33,6 +33,18 @@ bin/cake server -p 8765
 
 Then visit `http://localhost:8765` to see the welcome page.
 
+===== Data Base =====
+The SQL Sentence to mount the data base of the system is blog1.sql
+
+We have two types of the users
+First User - rol Administrator
+User: admin@admin.cl
+pass: admin123
+
+Second User - rol Reading
+User:lector@lector.cl
+pass:lector123
+
 ## Update
 
 Since this skeleton is a starting point for your application and various files
