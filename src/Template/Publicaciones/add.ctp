@@ -16,13 +16,13 @@
     <fieldset>
         <legend><?= __('Agregar Publicacion') ?></legend>
         <?php
-            //echo $this->Form->control('user_id', ['options' => $users]);
+            echo $this->Form->hidden('user_id',['value' => $this->request->session()->read('Auth.User.id')]);
             echo $this->Form->control('titulo');
             echo $this->Form->control('resumen');
             echo $this->Form->control('texto_completo');
             echo $this->Form->control('autor');
         ?>
     </fieldset>
-    <?= $this->Form->button(__('Agregar'),['class'=>'btn btn-success']) ?>
+    <?= $this->Form->button(__('Agregar'),['class'=>'btn btn-success btn-block']) ?>
     <?= $this->Form->end() ?>
 </div>

@@ -26,7 +26,9 @@ class PublicacionesController extends AppController
         $publicaciones = $this->paginate($this->Publicaciones);
 
         $this->loadModel('Users');
-        $users = $this->Users->find('all')->contain(['UsersPerfiles'])->where(['UsersPerfiles.user_id' => $this->Auth->user('id')]);//->contain(['UsersPerfiles.user_id' => $this->Auth->user('id')]);
+        $users = $this->Users->find('all')->contain(['UsersPerfiles'])->where(['UsersPerfiles.user_id' => $this->Auth->user('id')])
+        ->hydrate(false)
+        ->toArray();
 
         $this->set(compact('users'));
         $this->set(compact('publicaciones'));
@@ -110,11 +112,11 @@ class PublicacionesController extends AppController
         if ($this->request->is(['patch', 'post', 'put'])) {
             $publicacione = $this->Publicaciones->patchEntity($publicacione, $this->request->getData());
             if ($this->Publicaciones->save($publicacione)) {
-                $this->Flash->success(__('The publicacione has been saved.'));
+                $this->Flash->success(__('Publicacion Editada con exito.'));
 
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The publicacione could not be saved. Please, try again.'));
+            $this->Flash->error(__('La publicacion no pudo ser guardada'));
         }
         $users = $this->Publicaciones->Users->find('list', ['limit' => 200]);
         $this->set(compact('publicacione', 'users'));
@@ -133,9 +135,9 @@ class PublicacionesController extends AppController
         $this->request->allowMethod(['post', 'delete']);
         $publicacione = $this->Publicaciones->get($id);
         if ($this->Publicaciones->delete($publicacione)) {
-            $this->Flash->success(__('The publicacione has been deleted.'));
+            $this->Flash->success(__('La Publicacion fue eliminada con exito.'));
         } else {
-            $this->Flash->error(__('The publicacione could not be deleted. Please, try again.'));
+            $this->Flash->error(__('La aplicacion no se puedo eliminar'));
         }
 
         return $this->redirect(['action' => 'index']);

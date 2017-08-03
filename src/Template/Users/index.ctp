@@ -4,15 +4,16 @@
   * @var \App\Model\Entity\User[]|\Cake\Collection\CollectionInterface $users
   */
 ?>
-<nav class="large-3 medium-4 columns" id="actions-sidebar">
-    <ul class="side-nav">
-        <li class="heading"><?= __('Actions') ?></li>
+<nav class="navbar navbar-default" id="actions-sidebar">
+    <ul class="nav nav-tabs">
+        <li class="navbar-brand"><?= __('Acciones') ?></li>
         <li><?= $this->Html->link(__('New User'), ['action' => 'add']) ?></li>
+        <li class="pull-right"><?= $this->Html->link(__('Cerrar Sesion'), ['action' => 'logout']) ?></li>
     </ul>
 </nav>
 <div class="users index large-9 medium-8 columns content">
     <h3><?= __('Users') ?></h3>
-    <table cellpadding="0" cellspacing="0">
+    <table class="table table-striped" cellpadding="0" cellspacing="0">
         <thead>
             <tr>
                 <th scope="col"><?= $this->Paginator->sort('id') ?></th>
@@ -32,9 +33,9 @@
                 <td><?= h($user->created) ?></td>
                 <td><?= h($user->modified) ?></td>
                 <td class="actions">
-                    <?= $this->Html->link(__('View'), ['action' => 'view', $user->id]) ?>
-                    <?= $this->Html->link(__('Edit'), ['action' => 'edit', $user->id]) ?>
-                    <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $user->id], ['confirm' => __('Are you sure you want to delete # {0}?', $user->id)]) ?>
+                    <?= $this->Html->link(__('Ver'), ['action' => 'view', $user->id],['class'=>'btn btn-sm btn-success']) ?>
+                    <?= $this->Html->link(__('Editar'), ['action' => 'edit', $user->id],['class'=>'btn btn-sm btn-warning']) ?>
+                    <?= $this->Form->postLink(__('Eliminar'), ['action' => 'delete', $user->id],['class'=>'btn btn-sm btn-danger'], ['confirm' => __('AEstas seguro de la eliminacion # {0}?', $user->id)]) ?>
                 </td>
             </tr>
             <?php endforeach; ?>

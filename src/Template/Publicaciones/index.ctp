@@ -7,9 +7,12 @@
 <nav class="navbar navbar-default" id="actions-sidebar">
     <ul class="nav nav-tabs">
         <li class="navbar-brand"><?= __('Acciones') ?></li>
+        <?php if($users[0]['users_perfile']['id'] == 1): ?>
         <li><?= $this->Html->link(__('Nueva Publicacion'), ['action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('Listar Usuario'), ['controller' => 'Users', 'action' => 'index']) ?></li>
-        <!--li><?= $this->Html->link(__('New User'), ['controller' => 'Users', 'action' => 'add']) ?></li-->
+        <?php endif; ?>
+        <li class="pull-right"><?= $this->Html->link(__('SALIR'), ['controller' => 'Users', 'action' => 'logout']) ?></li>
+        <!--li><?= $this->Html->link(__('Listar Usuario'), ['controller' => 'Users', 'action' => 'index']) ?></li>
+        <li><?= $this->Html->link(__('New User'), ['controller' => 'Users', 'action' => 'add']) ?></li-->
     </ul>
 </nav>
 <div>
@@ -33,8 +36,10 @@
                 <td><?= h($publicacione->autor) ?></td>
                 <td class="actions">
                     <?= $this->Html->link(__('Ver'), ['action' => 'view', $publicacione->id],['class'=>'btn btn-sm btn-success']) ?>
+                    <?php if($users[0]['users_perfile']['id'] == 1): ?>
                     <?= $this->Html->link(__('Editar'), ['action' => 'edit', $publicacione->id],['class'=>'btn btn-sm btn-warning']) ?>
                     <?= $this->Form->postLink(__('Eliminar'), ['action' => 'delete', $publicacione->id],['class'=>'btn btn-sm btn-danger'], ['confirm' => __('Estas seguro de querer eliminarla? # {0}?', $publicacione->id)]) ?>
+                    <?php endif; ?>
                 </td>
             </tr>
             <?php endforeach; ?>

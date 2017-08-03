@@ -58,11 +58,7 @@ class UsersController extends AppController
         $results = $users->all();
         // Once we have a result set we can get all the rows
         $data = $results->toArray();
-        pr($data[0]);//->users_perfile->perfil_id);
-        /*$query = $users->find('all')->contain(['UsersPerfiles']);
-        foreach ($query as $user) {
-            echo $user->perfil_id[0]->text;
-        }*/
+        pr($data[0]);
     }
 
     /**
@@ -78,7 +74,19 @@ class UsersController extends AppController
             'contain' => []
         ]);
 
+        $id_menor = $this->Users->find('all', ['limit' => 1,'order' => 'Users.id DESC'])
+        ->where(['Users.id <' => $id])->limit(1)
+        ->hydrate(false)
+        ->toArray();
+
+        $id_mayor = $this->Users->find('all', ['limit' => 1,'order' => 'Users.id ASC'])
+        ->where(['Users.id >' => $id])->limit(1)
+        ->hydrate(false)
+        ->toArray();
+
         $this->set('user', $user);
+        $this->set('id_menor', isset($id_menor[0]['id'])?$id_menor[0]['id']:null);
+        $this->set('id_mayor', isset($id_mayor[0]['id'])?$id_mayor[0]['id']:null);
         $this->set('_serialize', ['user']);
     }
 
